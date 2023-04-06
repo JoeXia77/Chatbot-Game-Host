@@ -4,9 +4,9 @@ This chatbot serves as a game host for Lateral-Thinking Puzzles, also known as S
 
 ## How to Use
 
-1. Install the necessary dependencies. The API key is not provided, as it incurs a cost. You can obtain one from [OpenAI's platform](https://platform.openai.com/docs/introduction).
+1. The API key is not provided, as it incurs a cost. You can obtain one from [OpenAI's platform](https://platform.openai.com/docs/introduction).
 
-2. Run `chatbot.py`.
+2. Add your own to `chatbot.py` and Run `chatbot.py`.
 
 3. The following libraries are commonly used, so you should not have any issues with the environment:
 
