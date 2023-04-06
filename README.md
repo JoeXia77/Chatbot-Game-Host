@@ -1,33 +1,32 @@
-# Chatbot-Game-Host
+# Chatbot Game Host
 
-This chatbot serves as a game host for Lateral-Thinking Puzzles (also known as Situation Puzzles or Minute Mysteries).
+This chatbot serves as a game host for Lateral-Thinking Puzzles, also known as Situation Puzzles or Minute Mysteries. It is powered by ChatGPT (GPT-3.5-turbo) and provides responses to your questions, though sometimes it might simply say "I don't know". The chatbot cannot create original stories for you to solve but can utilize any existing story and assist in hosting the game.
 
-It is powered by ChatGPT (GPT-3.5-turbo) to provide responses to any of your questions (though sometimes it might simply say "I don't know").
+## How to Use
 
-While the chatbot doesn't have the capability to create original stories for you to solve, it can utilize any existing story and assist in hosting the game.
+1. Install the necessary dependencies. The API key is not provided, as it incurs a cost. You can obtain one from [OpenAI's platform](https://platform.openai.com/docs/introduction).
 
+2. Run `chatbot.py`.
 
-How to use:
-run chatbot.py after you installed necessary dependencies. The API key is not provided, as it charges me money. You could get one from: https://platform.openai.com/docs/introduction
+3. The following libraries are commonly used, so you should not have any issues with the environment:
 
-Environment: The following libraries seems very common, so hope you won't have any trouble with the environment.
-    import os
-    import json
-    import openai
-    import tkinter
+```python
+import os
+import json
+import openai
+import tkinter
+```
 
-Then there will be a UI, you can type your question use ENTER to send it to chatbot. You would get an Yes/No answer from chatbot.
+4. A user interface will appear where you can type your question and press ENTER to send it to the chatbot. You will receive a Yes/No answer from the chatbot.
+Sample
 
-
-Sample:
-
-Here is one of my try:
+## Here's a sample interaction:
 
 Story: A woman lives on the 30th floor and hates taking the stairs. Every day she takes the elevator down to the lobby floor to go to work. When she comes home from work, she takes the elevator to the 20th floor and walks the rest of the way up, except on days when it rains. Those days she takes the elevator all the way home.
 Question: Why does she walk the last ten flights of stairs if she hates it so much?
 
-
 Chat history:
+
 
 The elevator is not able to directly reach 30th floor while not raining. 
 
