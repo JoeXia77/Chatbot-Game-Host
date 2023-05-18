@@ -8,13 +8,13 @@ from tkinter import scrolledtext
 
 
 # Replace 'your_api_key' with your actual OpenAI API key
-openai.api_key = ""
+API_KEY = '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'
 
 class Chatbot:
     def __init__(self):
         self.history = []
-        self.model = "gpt-3.5-turbo"
-        self.default_conversation_length = 5
+        self.model = 'gpt-4'
+        self.default_conversation_length = 3
 
     def generate_message(self, user_input, conversation_length):
         message = {"role": "user", "content": user_input}
@@ -26,7 +26,6 @@ class Chatbot:
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=messages,
-            temperature=0,
         )
         return response['choices'][0]['message']['content']
 
@@ -53,15 +52,31 @@ class PuzzleHolder(Chatbot):
         with open(story_path, "r") as f:
             story = json.load(f)
         self.story = story
+        self.question = ''
+        self.truth = ''
+
+        self.load_story()
+    
+    def load_story(self):
+        story_path = "./Story1_eng.json"
+        with open(story_path, "r") as f:
+            story = json.load(f)
+            self.question = story['question']
+            self.truth = story['truth']
+
 
     def announce_game_start(self):
         print('Here is the story:')
-        print(self.story['appearance'])
-        print("\nQuestion: " + self.story['question'])
+        print(self.question)
         print("\nType below to ask anything which could help you reach the truth")
 
     def prefix_game_rule(self, messages):
-        rule = f"I want you to hold an Lateral-Thinking Puzzles game. You know the truth of the story, if user ask you any question about this story, if you are not very sure about the answer, please answer 'I don't know', if you could use yes or no to answer the question, do that. if you cannot reply only with yes or no, don't tell anything about the truth but tell the user I can not answer that. The truth of story is as follows: {self.story['truth']}, now the game starts."
+        rule = f"""
+        Your job is to hold an Lateral-Thinking Puzzles game. According to the truth in angle bracket.
+        Summarize the answer and reply in a very short style, like 'Yes', 'No', 'Kind of', 'Not related'
+        Here is the story: {self.truth}
+        """
+        ## rule = f"I want you to hold an Lateral-Thinking Puzzles game. You know the truth of the story, if user ask you any question about this story, if you are not very sure about the answer, please answer 'I don't know', if you could use yes or no to answer the question, do that. if you cannot reply only with yes or no, don't tell anything about the truth but tell the user I can not answer that. The truth of story is as follows: {self.truth}, now the game starts."
         prefix = {"role": "user", "content": rule}
         messages.insert(0, prefix)
         return messages
@@ -74,6 +89,7 @@ class PuzzleHolder(Chatbot):
                 break
             messages = self.generate_message(user_input, self.default_conversation_length)
             messages = self.prefix_game_rule(messages)
+            print(messages)
             response = self.get_response(messages)
             self.history.append({"role": "system", "content": response})
             print("system: " + response)
@@ -100,11 +116,8 @@ class LateralThinkingPuzzlesUI:
 
         self.story_text = tk.Text(self.story_frame, wrap=tk.WORD, height=8, width=60, font=("Helvetica", 12))
         self.story_text.pack(side=tk.LEFT, padx=5)
-        self.story_text.insert(tk.END, self.game.story['appearance'])
+        self.story_text.insert(tk.END, self.game.question)
 
-        self.question_label = ttk.Label(self.master, text="Seeking Truth: " + self.game.story['question'], wraplength=500)
-        self.question_label.pack(pady=20, anchor=tk.CENTER, expand=True)
-        
         
         self.input_frame = ttk.Frame(self.master)
         self.input_frame.pack(pady=20)

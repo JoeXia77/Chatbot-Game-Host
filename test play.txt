@@ -1,0 +1,11 @@
+test play 1
+You: Is OtakuAce an human
+System: No.
+You: OtakuAce died because of not punctuality
+System: No.
+You: OtakuAce is always punctuality but still died
+System: Yes.
+You: OtakuAce is the owner of this house
+System: No.
+You: OtakuAce is illegal to live here
+System: No.
